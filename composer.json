@@ -1,0 +1,39 @@
+{
+    "name": "webit/dpd-client",
+    "description": "DPD Client",
+    "type": "library",
+    "require": {
+        "php": ">=5.4",
+        "webit/soap-api": "^2.0",
+        "jms/serializer": "^1.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8",
+        "fzaninotto/faker": "^1.6",
+        "mockery/mockery": "^0.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Webit\\DPDClient\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Webit\\DPDClient\\": "tests/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dbojdo",
+            "email": "daniel@bojdo.eu"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
