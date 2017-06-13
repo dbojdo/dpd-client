@@ -1,0 +1,33 @@
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
+        backupGlobals="true"
+        backupStaticAttributes="false"
+        bootstrap="tests/bootstrap.php"
+        cacheTokens="false"
+        colors="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        forceCoversAnnotation="false"
+        timeoutForSmallTests="1"
+        timeoutForMediumTests="10"
+        timeoutForLargeTests="60"
+        verbose="false"
+>
+    <php>
+        <env name="dpd.login" value="changeme"/>
+        <env name="dpd.password" value="changeme"/>
+        <env name="dpd.fid" value="changeme"/>
+        <env name="dpd.wsdl" value="https://dpdservicesdemo.dpd.com.pl/DPDPackageObjServicesService/DPDPackageObjServices?wsdl"/>
+        <!--<env name="dpd.dump_io" value="dump/" />-->
+    </php>
+    <testsuites>
+        <testsuite name="DPDServices">
+            <directory>./tests/DPDServices</directory>
+        </testsuite>
+        <testsuite name="DPDInfoServices">
+            <directory>./tests/DPDServices</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
