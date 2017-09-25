@@ -1,28 +1,22 @@
 <?php
 
-namespace Webit\DPDClient\DPDServices;
 
-use Webit\DPDClient\DPDServices\Client\ClientEnvironments;
-use Webit\DPDClient\DPDServices\Client\ExceptionsWrappingExecutor;
-use Webit\DPDClient\DPDServices\Common\AuthDataV1;
-use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\OpenUMLFV1;
-use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\OpenUMLFV2;
-use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\Services;
+namespace Webit\DPDClient\DPDInfoServices;
+
+use Webit\DPDClient\DPDInfoServices\Client\ClientEnvironments;
+use Webit\DPDClient\DPDInfoServices\Common\AuthDataV1;
 use Webit\SoapApi\Executor\SoapApiExecutorBuilder;
 
 abstract class AbstractApiTest extends AbstractIntegrationTest
 {
-    const DPD_MAX_INT = '2147483647';
-
     /**
      * @return \Webit\SoapApi\Executor\SoapApiExecutor
      */
     protected function soapExecutor()
     {
-
         $builder = new SoapApiExecutorBuilder();
         $builder->setWsdl(
-            $wsdl = $this->getEnv('dpd.services_wsdl') ?: ClientEnvironments::wsdl(ClientEnvironments::TEST)
+            $wsdl = $this->getEnv('dpd.info_services_wsdl') ?: ClientEnvironments::wsdl(ClientEnvironments::TEST)
         );
 
         $serializer = $this->serializer();
@@ -33,7 +27,7 @@ abstract class AbstractApiTest extends AbstractIntegrationTest
         $hydrator = $this->hydrator($serializer);
         $builder->setHydrator($hydrator);
 
-        return new ExceptionsWrappingExecutor($builder->build());
+        return $builder->build();
     }
 
     /**
@@ -54,7 +48,7 @@ abstract class AbstractApiTest extends AbstractIntegrationTest
             );
         }
 
-        if ($authData->masterFid() == 0) {
+        if ($authData->channel() == 0) {
             $this->markTestSkipped('The dpd.fid is not set. Change your phpunit.xml settings.');
         }
 
@@ -79,30 +73,5 @@ abstract class AbstractApiTest extends AbstractIntegrationTest
         return !in_array('changeme', array($authData->login(), $authData->password()))
             && $authData->login()
             && $authData->password();
-    }
-
-    /**
-     * @param bool $multiplePackages
-     * @param bool $multipleParcels
-     * @param Services|null $services
-     * @param int $senderFid
-     * @return OpenUMLFV1
-     */
-    protected function generateOpenUmlf($multiplePackages, $multipleParcels, Services $services = null, $senderFid = null)
-    {
-        return parent::generateOpenUmlf($multiplePackages, $multipleParcels, $services, $this->authData()->masterFid());
-    }
-
-    /**
-     * @param bool $multiplePackages
-     * @param bool $multipleParcels
-     * @param Services|null $services
-     * @param string $customer
-     * @param int $senderFid
-     * @return OpenUMLFV2
-     */
-    protected function generateOpenUmlfV2($multiplePackages, $multipleParcels, Services $services = null, $customer = null, $senderFid = null)
-    {
-        return parent::generateOpenUmlfV2($multiplePackages, $multipleParcels, $services, $customer, $this->authData()->masterFid());
     }
 }

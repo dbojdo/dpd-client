@@ -4,6 +4,9 @@ namespace Webit\DPDClient\DPDServices\PostalCode;
 
 use Webit\DPDClient\DPDServices\AbstractApiTest;
 
+/**
+ * @group api
+ */
 class GetCourierOrderAvailabilityV1ApiTest extends AbstractApiTest
 {
     /** @var GetCourierOrderAvailabilityV1 */
@@ -15,7 +18,6 @@ class GetCourierOrderAvailabilityV1ApiTest extends AbstractApiTest
     }
 
     /**
-     * @group api
      * @test
      * @dataProvider postCodes
      * @param SenderPlaceV1 $senderPlace

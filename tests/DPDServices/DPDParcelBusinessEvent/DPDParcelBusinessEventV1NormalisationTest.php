@@ -4,6 +4,9 @@ namespace Webit\DPDClient\DPDServices\DPDParcelBusinessEvent;
 
 use Webit\DPDClient\DPDServices\AbstractIntegrationTest;
 
+/**
+ * @group api
+ */
 class DPDParcelBusinessEventV1NormalisationTest extends AbstractIntegrationTest
 {
     /**

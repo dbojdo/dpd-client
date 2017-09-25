@@ -9,7 +9,7 @@ use Webit\DPDClient\DPDInfoServices\CustomerEvents\GetEventsForCustomerV2;
 use Webit\DPDClient\DPDInfoServices\CustomerEvents\GetEventsForCustomerV3;
 use Webit\DPDClient\DPDInfoServices\CustomerEvents\GetEventsForCustomerV4;
 use Webit\DPDClient\DPDInfoServices\CustomerEvents\GetEventsForWaybillV1;
-use Webit\DPDClient\DPDInfoServices\CustomerEvents\MarkEventsAsProcessedV1;
+use Webit\DPDClient\DPDInfoServices\CustomerEvents\MarkEventsAsProcessedV1ApiTest;
 
 class Client
 {
@@ -28,7 +28,7 @@ class Client
     /** @var GetEventsForWaybillV1 */
     private $eventsForWaybillV1;
 
-    /** @var MarkEventsAsProcessedV1 */
+    /** @var MarkEventsAsProcessedV1ApiTest */
     private $markEventsAsProcessedV1;
 
     /** @var AuthDataV1 */
@@ -41,7 +41,7 @@ class Client
      * @param GetEventsForCustomerV3 $getEventsForCustomerV3
      * @param GetEventsForCustomerV4 $getEventsForCustomerV4
      * @param GetEventsForWaybillV1 $eventsForWaybillV1
-     * @param MarkEventsAsProcessedV1 $markEventsAsProcessedV1
+     * @param MarkEventsAsProcessedV1ApiTest $markEventsAsProcessedV1
      * @param AuthDataV1 $authDataV1
      */
     public function __construct(
@@ -50,7 +50,7 @@ class Client
         GetEventsForCustomerV3 $getEventsForCustomerV3,
         GetEventsForCustomerV4 $getEventsForCustomerV4,
         GetEventsForWaybillV1 $eventsForWaybillV1,
-        MarkEventsAsProcessedV1 $markEventsAsProcessedV1,
+        MarkEventsAsProcessedV1ApiTest $markEventsAsProcessedV1,
         AuthDataV1 $authDataV1
     ) {
         $this->getEventsForCustomerV1 = $getEventsForCustomerV1;

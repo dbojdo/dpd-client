@@ -8,7 +8,7 @@ class CustomerEventsResponseV2 extends AbstractCustomerEventsResponse
 {
     /**
      * @var CustomerEventV2[]
-     * @JMS\Type("array<Webit\DPDClient\DPDInfoServices\CustomerEventV2>")
+     * @JMS\Type("array<Webit\DPDClient\DPDInfoServices\CustomerEvents\CustomerEventV2>")
      * @JMS\SerializedName("eventsList")
      */
     private $eventsList;
@@ -38,5 +38,13 @@ class CustomerEventsResponseV2 extends AbstractCustomerEventsResponse
     public function getIterator()
     {
         return new \ArrayIterator($this->eventsList());
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function count()
+    {
+        return count($this->eventsList ?: array());
     }
 }

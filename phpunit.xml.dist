@@ -22,8 +22,16 @@
         <env name="dpd.wsdl" value="https://dpdservicesdemo.dpd.com.pl/DPDPackageObjServicesService/DPDPackageObjServices?wsdl"/>
     </php>
     <testsuites>
-        <testsuite name="Tests">
-            <directory>./tests</directory>
+        <testsuite name="DPDServices-Unit">
+            <directory>./tests/DPDServices</directory>
+        </testsuite>
+        <testsuite name="DPDServices-API">
+            <directory>./tests/DPDServices</directory>
+            <groups>
+                <include>
+                    <group>api</group>
+                </include>
+            </groups>
         </testsuite>
     </testsuites>
 </phpunit>

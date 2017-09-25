@@ -13,6 +13,9 @@ use Webit\DPDClient\DPDServices\DPDPickupCallParams\PickupPackagesParamsDPPV1;
 use Webit\DPDClient\DPDServices\DPDPickupCallParams\PickupPayerDPPV1;
 use Webit\DPDClient\DPDServices\DPDPickupCallParams\PickupSenderDPPV1;
 
+/**
+ * @group api
+ */
 class PackagesPickupCallV2ApiTest extends AbstractApiTest
 {
     /** @var PackagesPickupCallV2 */

@@ -10,6 +10,9 @@ use Webit\DPDClient\DPDServices\DPDPickupCallParams\PolicyDPPEnumV1;
 use Webit\DPDClient\DPDServices\DPDPickupCallParams\ProtocolDPPV1;
 use Webit\DPDClient\DPDServices\DPDServicesParams\PickupAddressDSPV1;
 
+/**
+ * @group api
+ */
 class PackagesPickupCallV1ApiTest extends AbstractApiTest
 {
     /** @var PackagesPickupCallV1 */

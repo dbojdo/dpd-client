@@ -4,6 +4,9 @@ namespace Webit\DPDClient\DPDServices\PostalCode;
 
 use Webit\DPDClient\DPDServices\AbstractApiTest;
 
+/**
+ * @group api
+ */
 class FindPostalCodeV1ApiTest extends AbstractApiTest
 {
     /** @var FindPostalCodeV1 */
@@ -15,7 +18,6 @@ class FindPostalCodeV1ApiTest extends AbstractApiTest
     }
 
     /**
-     * @group api
      * @test
      * @dataProvider postCodes
      */

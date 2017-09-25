@@ -11,6 +11,9 @@ use Webit\DPDClient\DPDServices\DPDServicesParams\SessionDSPV1;
 use Webit\DPDClient\DPDServices\PackagesGeneration\GeneratePackagesNumbersV1;
 use Webit\DPDClient\DPDServices\PackagesGeneration\PkgNumsGenerationPolicyEnumV1;
 
+/**
+ * @group api
+ */
 class GenerateProtocolV1ApiTest extends AbstractApiTest
 {
     /** @var GeneratePackagesNumbersV1 */

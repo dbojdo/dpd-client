@@ -13,15 +13,15 @@ class ResponseExtractingHydrator implements Hydrator
      */
     public function hydrateResult($result, $soapFunction)
     {
-        if (! ($result instanceof \stdClass)) {
-            return $result;
+        $tmpResult = $result;
+        if ($tmpResult instanceof \stdClass) {
+            $tmpResult = get_object_vars($result);
         }
 
-        $properties = get_object_vars($result);
-        if (! array_key_exists('return', $properties)) {
-            return $result;
+        if (array_key_exists('return', $tmpResult)) {
+            return $tmpResult['return'];
         }
 
-        return $properties['return'];
+        return $result;
     }
 }

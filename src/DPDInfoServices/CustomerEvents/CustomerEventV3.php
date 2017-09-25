@@ -2,10 +2,14 @@
 
 namespace Webit\DPDClient\DPDInfoServices\CustomerEvents;
 
+use JMS\Serializer\Annotation as JMS;
+
 class CustomerEventV3 extends AbstractCustomerEvent implements \IteratorAggregate
 {
     /**
      * @var CustomerEventDataV3[]
+     * @JMS\Type("array<Webit\DPDClient\DPDInfoServices\CustomerEvents\CustomerEventDataV3>")
+     * @JMS\SerializedName("eventDataList")
      */
     private $eventDataList;
 

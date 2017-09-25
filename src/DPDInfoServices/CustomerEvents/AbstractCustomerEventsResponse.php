@@ -4,7 +4,7 @@ namespace Webit\DPDClient\DPDInfoServices\CustomerEvents;
 
 use JMS\Serializer\Annotation as JMS;
 
-abstract class AbstractCustomerEventsResponse implements \IteratorAggregate
+abstract class AbstractCustomerEventsResponse implements \IteratorAggregate, \Countable
 {
     /**
      * @var string

@@ -7,6 +7,9 @@ use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\OpenUMLFV1;
 use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\PackageV2;
 use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\Services;
 
+/**
+ * @group api
+ */
 class GeneratePackagesNumbersV2ApiTest extends AbstractApiTest
 {
     /** @var GeneratePackagesNumbersV2 */

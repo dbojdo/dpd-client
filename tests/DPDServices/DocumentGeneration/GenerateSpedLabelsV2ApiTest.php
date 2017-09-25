@@ -12,6 +12,9 @@ use Webit\DPDClient\DPDServices\PackagesGeneration\GeneratePackagesNumbersV3;
 use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\Services;
 use Webit\DPDClient\DPDServices\PackagesGeneration\PkgNumsGenerationPolicyEnumV1;
 
+/**
+ * @group api
+ */
 class GenerateSpedLabelsV2ApiTest extends AbstractApiTest
 {
     /** @var GeneratePackagesNumbersV3 */

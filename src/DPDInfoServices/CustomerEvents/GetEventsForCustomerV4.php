@@ -11,11 +11,11 @@ class GetEventsForCustomerV4 extends AbstractApi
      * @param int $limit
      * @param string $language
      * @param AuthDataV1 $authDataV1
-     * @return CustomerEventsResponseV2
+     * @return CustomerEventsResponseV3
      */
     public function __invoke($limit, $language, AuthDataV1 $authDataV1)
     {
-        /** @var CustomerEventsResponseV2 $response */
+        /** @var CustomerEventsResponseV3 $response */
         $response = $this->doRequest(
             'getEventsForCustomerV4',
             array(

@@ -9,6 +9,9 @@ use Webit\DPDClient\DPDServices\DPDParcelBusinessEvent\DPDParcelBusinessEventV1;
 use Webit\DPDClient\DPDServices\PackagesGeneration\GeneratePackagesNumbersV3;
 use Webit\DPDClient\DPDServices\PackagesGeneration\PkgNumsGenerationPolicyEnumV1;
 
+/**
+ * @group api
+ */
 class ImportDeliveryBusinessEventApiTest extends AbstractApiTest
 {
     /** @var ImportDeliveryBusinessEvent */

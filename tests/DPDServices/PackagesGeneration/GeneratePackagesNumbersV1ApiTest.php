@@ -11,6 +11,9 @@ use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\PackageV1;
 use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\Services\SelfCol;
 use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\Services;
 
+/**
+ * @group api
+ */
 class GeneratePackagesNumbersV1ApiTest extends AbstractApiTest
 {
     /** @var GeneratePackagesNumbersV1 */

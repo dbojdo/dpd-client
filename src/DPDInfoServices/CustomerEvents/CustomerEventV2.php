@@ -8,6 +8,8 @@ class CustomerEventV2 extends AbstractCustomerEvent implements \IteratorAggregat
 {
     /**
      * @var CustomerEventDataV2[]
+     * @JMS\Type("array<Webit\DPDClient\DPDInfoServices\CustomerEvents\CustomerEventDataV2>")
+     * @JMS\SerializedName("eventDataList")
      */
     private $eventDataList;
 
