@@ -3,17 +3,33 @@
 namespace Webit\DPDClient\DPDInfoServices\Client;
 
 use JMS\Serializer\Serializer;
-use Webit\DPDClient\Util\Hydrator\ResponseExtractingHydrator;
 use Webit\SoapApi\Hydrator\ArrayHydrator;
 use Webit\SoapApi\Hydrator\ChainHydrator;
 use Webit\SoapApi\Hydrator\Hydrator;
 use Webit\SoapApi\Hydrator\HydratorSerializerBased;
+use Webit\SoapApi\Hydrator\KeyExtractingHydrator;
 use Webit\SoapApi\Hydrator\ResultDumpingHydrator;
 use Webit\SoapApi\Hydrator\Serializer\ResultTypeMap;
+use Webit\SoapApi\Util\Dumper\Dumper;
+use Webit\SoapApi\Util\Dumper\VoidDumper;
 use Webit\SoapApi\Util\StdClassToArray;
 
 class HydratorFactory
 {
+    /**
+     * @var Dumper
+     */
+    private $dumper;
+
+    /**
+     * HydratorFactory constructor.
+     * @param Dumper $dumper
+     */
+    public function __construct(Dumper $dumper = null)
+    {
+        $this->dumper = $dumper ?: new VoidDumper();
+    }
+
     /**
      * @param Serializer $serializer
      * @return Hydrator
@@ -24,7 +40,8 @@ class HydratorFactory
             new ChainHydrator(
                 array(
                     new ArrayHydrator(new StdClassToArray()),
-                    $this->responseExtractingHydrator(),
+                    new ResultDumpingHydrator($this->dumper),
+                    new KeyExtractingHydrator('return'),
                     new HydratorSerializerBased(
                         $serializer,
                         new ResultTypeMap(
@@ -39,21 +56,5 @@ class HydratorFactory
                     )
                 )
             );
-    }
-
-    /**
-     * @return Hydrator
-     */
-    private function responseExtractingHydrator()
-    {
-        $hydrator = new ResponseExtractingHydrator();
-        if (false) {
-            return $hydrator;
-        }
-
-        return new ResultDumpingHydrator(
-            $hydrator,
-            __DIR__.'/dump'
-        );
     }
 }

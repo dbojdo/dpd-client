@@ -5,15 +5,30 @@ namespace Webit\DPDClient\DPDInfoServices\Client;
 use JMS\Serializer\Serializer;
 use Webit\SoapApi\Input\ArrayWrappingNormaliser;
 use Webit\SoapApi\Input\FrontInputNormaliser;
-use Webit\SoapApi\Input\InputNormaliser;
+use Webit\SoapApi\Input\InputDumpingNormaliser;
 use Webit\SoapApi\Input\InputNormaliserSerializerBased;
 use Webit\SoapApi\Input\Serializer\StaticSerializationContextFactory;
+use Webit\SoapApi\Util\Dumper\Dumper;
+use Webit\SoapApi\Util\Dumper\VoidDumper;
 
 class NormaliserFactory
 {
     /**
-     * @param Serializer $serializer
-     * @return InputNormaliser
+     * @var Dumper
+     */
+    private $dumper;
+
+    /**
+     * NormaliserFactory constructor.
+     * @param Dumper $dumper
+     */
+    public function __construct(Dumper $dumper = null)
+    {
+        $this->dumper = $dumper ?: new VoidDumper();
+    }
+
+    /**
+     * @inheritdoc
      */
     public function create(Serializer $serializer)
     {
@@ -23,11 +38,14 @@ class NormaliserFactory
         );
 
         $soapFunctionNormaliser =
-            new ArrayWrappingNormaliser(
-                new InputNormaliserSerializerBased(
-                    $serializer,
-                    new StaticSerializationContextFactory()
-                )
+            new InputDumpingNormaliser(
+                new ArrayWrappingNormaliser(
+                    new InputNormaliserSerializerBased(
+                        $serializer,
+                        new StaticSerializationContextFactory()
+                    )
+                ),
+                $this->dumper
             );
 
         return new FrontInputNormaliser(

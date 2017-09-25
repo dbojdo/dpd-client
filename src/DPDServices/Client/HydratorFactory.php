@@ -3,15 +3,31 @@
 namespace Webit\DPDClient\DPDServices\Client;
 
 use JMS\Serializer\Serializer;
-use Webit\DPDClient\Util\Hydrator\ResponseExtractingHydrator;
 use Webit\SoapApi\Hydrator\ArrayHydrator;
 use Webit\SoapApi\Hydrator\ChainHydrator;
 use Webit\SoapApi\Hydrator\HydratorSerializerBased;
+use Webit\SoapApi\Hydrator\KeyExtractingHydrator;
+use Webit\SoapApi\Hydrator\ResultDumpingHydrator;
 use Webit\SoapApi\Hydrator\Serializer\ResultTypeMap;
+use Webit\SoapApi\Util\Dumper\Dumper;
 use Webit\SoapApi\Util\StdClassToArray;
 
 class HydratorFactory
 {
+    /**
+     * @var Dumper
+     */
+    private $dumper;
+
+    /**
+     * HydratorFactory constructor.
+     * @param Dumper $dumper
+     */
+    public function __construct(Dumper $dumper)
+    {
+        $this->dumper = $dumper;
+    }
+
     /**
      * @param Serializer $serializer
      * @return ChainHydrator
@@ -20,7 +36,8 @@ class HydratorFactory
     {
         return new ChainHydrator(
             array(
-                new ResponseExtractingHydrator(),
+                new ResultDumpingHydrator($this->dumper),
+                new KeyExtractingHydrator('return'),
                 new ArrayHydrator(new StdClassToArray()),
                 new HydratorSerializerBased(
                     $serializer,

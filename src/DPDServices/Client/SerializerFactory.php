@@ -6,9 +6,9 @@ use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\EventDispatcher\Events;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializerBuilder;
-use Webit\DPDClient\Util\Hydrator\ArrayEnsuringListener;
-use Webit\DPDClient\Util\Hydrator\ArrayFlatteningListener;
 use Webit\DPDClient\Util\Normaliser\EnumPreSerializationHandler;
+use Webit\SoapApi\Hydrator\Serializer\Listener\ArrayEnsuringListener;
+use Webit\SoapApi\Hydrator\Serializer\Listener\ArrayFlatteningListener;
 
 class SerializerFactory
 {

@@ -4,7 +4,7 @@
     "type": "library",
     "require": {
         "php": ">=5.4",
-        "webit/soap-api": "^2.0.2",
+        "webit/soap-api": "^2.1.0",
         "jms/serializer": "^1.1.0"
     },
     "require-dev": {

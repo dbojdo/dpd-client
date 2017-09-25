@@ -37,7 +37,7 @@ abstract class AbstractIntegrationTest extends AbstractServicesTest
     {
         $serializer = $serializer ?: $this->serializer();
 
-        $normaliserFactory = new NormaliserFactory();
+        $normaliserFactory = new NormaliserFactory($this->ioDumper());
         return $normaliserFactory->create($serializer);
     }
 
@@ -49,7 +49,7 @@ abstract class AbstractIntegrationTest extends AbstractServicesTest
     {
         $serializer = $serializer ?: $this->serializer();
 
-        $hydratorFactory = new HydratorFactory();
+        $hydratorFactory = new HydratorFactory($this->ioDumper());
         return $hydratorFactory->create($serializer);
     }
 

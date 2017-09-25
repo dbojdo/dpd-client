@@ -7,7 +7,7 @@ use JMS\Serializer\Serializer;
 use Webit\DPDClient\DPDInfoServices\Client\HydratorFactory;
 use Webit\DPDClient\DPDInfoServices\Client\NormaliserFactory;
 use Webit\DPDClient\DPDInfoServices\Client\SerializerFactory;
-use Webit\SoapApi\Hydrator\ChainHydrator;
+use Webit\SoapApi\Hydrator\Hydrator;
 use Webit\SoapApi\Input\InputNormaliser;
 
 abstract class AbstractIntegrationTest extends AbstractInfoServicesTest
@@ -29,19 +29,19 @@ abstract class AbstractIntegrationTest extends AbstractInfoServicesTest
     {
         $serializer = $serializer ?: $this->serializer();
 
-        $normaliserFactory = new NormaliserFactory();
+        $normaliserFactory = new NormaliserFactory($this->ioDumper());
         return $normaliserFactory->create($serializer);
     }
 
     /**
      * @param Serializer|null $serializer
-     * @return ChainHydrator
+     * @return Hydrator
      */
     protected function hydrator(Serializer $serializer = null)
     {
         $serializer = $serializer ?: $this->serializer();
 
-        $hydratorFactory = new HydratorFactory();
+        $hydratorFactory = new HydratorFactory($this->ioDumper());
         return $hydratorFactory->create($serializer);
     }
 }

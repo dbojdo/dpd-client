@@ -20,18 +20,14 @@
         <env name="dpd.password" value="changeme"/>
         <env name="dpd.fid" value="changeme"/>
         <env name="dpd.wsdl" value="https://dpdservicesdemo.dpd.com.pl/DPDPackageObjServicesService/DPDPackageObjServices?wsdl"/>
+        <!--<env name="dpd.dump_io" value="tests/dump" />-->
     </php>
     <testsuites>
-        <testsuite name="DPDServices-Unit">
+        <testsuite name="DPDServices">
             <directory>./tests/DPDServices</directory>
         </testsuite>
-        <testsuite name="DPDServices-API">
+        <testsuite name="DPDInfoServices">
             <directory>./tests/DPDServices</directory>
-            <groups>
-                <include>
-                    <group>api</group>
-                </include>
-            </groups>
         </testsuite>
     </testsuites>
 </phpunit>

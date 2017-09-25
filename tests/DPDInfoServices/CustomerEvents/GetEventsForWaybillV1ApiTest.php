@@ -22,9 +22,9 @@ class GetEventsForWaybillV1ApiTest extends AbstractApiTest
      */
     public function shouldGetEventsForWaybill()
     {
-        $this->markTestSkipped('java.nullPointer.exception');
+        $this->markTestSkipped('java.lang.NullPointerException');
         $response = $this->getEventsForWaybill->__invoke(
-            '0000075053712U',
+            '0000075077195U',
             EventsSelectTypeEnum::onlyLast(),
             'PL',
             $this->authData()
