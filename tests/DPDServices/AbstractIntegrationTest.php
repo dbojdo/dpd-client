@@ -17,6 +17,7 @@ use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\Sender;
 use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\Services;
 use Webit\SoapApi\Hydrator\ChainHydrator;
 use Webit\SoapApi\Input\InputNormaliser;
+use Webit\SoapApi\Util\Dumper\VoidDumper;
 
 abstract class AbstractIntegrationTest extends AbstractServicesTest
 {
@@ -239,4 +240,11 @@ abstract class AbstractIntegrationTest extends AbstractServicesTest
         );
     }
 
+    /**
+     * @return VoidDumper
+     */
+    protected function ioDumper()
+    {
+        return new VoidDumper();
+    }
 }

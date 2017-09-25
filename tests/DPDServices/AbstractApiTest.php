@@ -9,6 +9,9 @@ use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\OpenUMLFV1;
 use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\OpenUMLFV2;
 use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\Services;
 use Webit\SoapApi\Executor\SoapApiExecutorBuilder;
+use Webit\SoapApi\Util\Dumper\PhpFileDumper;
+use Webit\SoapApi\Util\Dumper\StaticNameGenerator;
+use Webit\SoapApi\Util\Dumper\VoidDumper;
 
 abstract class AbstractApiTest extends AbstractIntegrationTest
 {
@@ -104,5 +107,17 @@ abstract class AbstractApiTest extends AbstractIntegrationTest
     protected function generateOpenUmlfV2($multiplePackages, $multipleParcels, Services $services = null, $customer = null, $senderFid = null)
     {
         return parent::generateOpenUmlfV2($multiplePackages, $multipleParcels, $services, $customer, $this->authData()->masterFid());
+    }
+
+    protected function ioDumper()
+    {
+        $dir = $this->ioDumperDir();
+        if (!$dir) {
+            return new VoidDumper();
+        }
+        return new PhpFileDumper(
+            $dir,
+            new StaticNameGenerator('SoapIoDump-'.self::$runId)
+        );
     }
 }

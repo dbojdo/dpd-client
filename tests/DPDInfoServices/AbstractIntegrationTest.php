@@ -9,6 +9,7 @@ use Webit\DPDClient\DPDInfoServices\Client\NormaliserFactory;
 use Webit\DPDClient\DPDInfoServices\Client\SerializerFactory;
 use Webit\SoapApi\Hydrator\Hydrator;
 use Webit\SoapApi\Input\InputNormaliser;
+use Webit\SoapApi\Util\Dumper\VoidDumper;
 
 abstract class AbstractIntegrationTest extends AbstractInfoServicesTest
 {
@@ -43,5 +44,10 @@ abstract class AbstractIntegrationTest extends AbstractInfoServicesTest
 
         $hydratorFactory = new HydratorFactory($this->ioDumper());
         return $hydratorFactory->create($serializer);
+    }
+
+    protected function ioDumper()
+    {
+        return new VoidDumper();
     }
 }

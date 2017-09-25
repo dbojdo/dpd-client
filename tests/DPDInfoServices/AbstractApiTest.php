@@ -6,6 +6,9 @@ namespace Webit\DPDClient\DPDInfoServices;
 use Webit\DPDClient\DPDInfoServices\Client\ClientEnvironments;
 use Webit\DPDClient\DPDInfoServices\Common\AuthDataV1;
 use Webit\SoapApi\Executor\SoapApiExecutorBuilder;
+use Webit\SoapApi\Util\Dumper\PhpFileDumper;
+use Webit\SoapApi\Util\Dumper\StaticNameGenerator;
+use Webit\SoapApi\Util\Dumper\VoidDumper;
 
 abstract class AbstractApiTest extends AbstractIntegrationTest
 {
@@ -73,5 +76,17 @@ abstract class AbstractApiTest extends AbstractIntegrationTest
         return !in_array('changeme', array($authData->login(), $authData->password()))
             && $authData->login()
             && $authData->password();
+    }
+
+    protected function ioDumper()
+    {
+        $dir = $this->ioDumperDir();
+        if (!$dir) {
+            return new VoidDumper();
+        }
+        return new PhpFileDumper(
+            $dir,
+            new StaticNameGenerator('SoapIoDump-'.self::$runId)
+        );
     }
 }

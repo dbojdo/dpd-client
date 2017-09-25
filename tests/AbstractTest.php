@@ -4,14 +4,12 @@ namespace Webit\DPDClient;
 
 use Faker\Factory;
 use Faker\Generator;
-use Webit\SoapApi\Util\Dumper\PhpFileDumper;
-use Webit\SoapApi\Util\Dumper\StaticNameGenerator;
 use Webit\SoapApi\Util\Dumper\VoidDumper;
 
 abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 {
     /** @var string */
-    private static $runId;
+    protected static $runId;
 
     public static function setUpBeforeClass()
     {
@@ -85,17 +83,13 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         return \Mockery::mock('Webit\SoapApi\Executor\SoapApiExecutor');
     }
 
-    protected function ioDumper()
+    protected function ioDumperDir()
     {
         $dir = getenv('dpd.dump_io') ?: null;
         if (!$dir) {
             return new VoidDumper();
         }
 
-        $dir = __DIR__.'/../'.$dir;
-        return new PhpFileDumper(
-            $dir,
-            new StaticNameGenerator('SoapIoDump-'.self::$runId)
-        );
+        return __DIR__.'/../'.$dir;
     }
 }
