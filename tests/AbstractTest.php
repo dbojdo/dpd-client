@@ -73,12 +73,4 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         return \Mockery::mock('Webit\SoapApi\Executor\SoapApiExecutor');
     }
-
-    /**
-     * @return \Mockery\MockInterface|\Webit\DPDClient\Common\AuthDataV1
-     */
-    protected function mockAuthData()
-    {
-        return \Mockery::mock('Webit\DPDClient\Common\AuthDataV1');
-    }
 }
