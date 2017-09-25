@@ -16,25 +16,25 @@ Add the **webit/dpd-client** into **composer.json**
 
 ## Usage
 
-### Creating the Client
+### Creating the DPDServices Client
 
 ```php
-use Webit\DPDClient\Client\ClientFactory;
-use Webit\DPDClient\Common\AuthDataV1;
+use Webit\DPDClient\DPDServices\Client\ClientFactory;
+use Webit\DPDClient\DPDServices\Common\AuthDataV1;
 
 $authData = new AuthDataV1('login', 'password', 123);
 
 $clientFactory = new ClientFactory();
 
-/** @var \Webit\DPDClient\Client $client */
+/** @var \Webit\DPDClient\DPDServices\Client $client */
 $client = $clientFactory->create($authData);
 
 // optionally pass the test WSDL path
-use Webit\DPDClient\Client\ClientEnvironments;
+use Webit\DPDClient\Client\DPDServices\ClientEnvironments;
 $client = $clientFactory->create($authData, ClientEnvironments::wsdl(ClientEnvironments::TEST));
 
 // optionally pass a custom WSDL path
-use Webit\DPDClient\Client\ClientEnvironments;
+use Webit\DPDClient\Client\DPDServices\ClientEnvironments;
 $client = $clientFactory->create($authData, 'dpdapi.wsdl');
 
 ```
