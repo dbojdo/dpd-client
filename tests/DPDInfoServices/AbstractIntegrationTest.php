@@ -23,6 +23,14 @@ abstract class AbstractIntegrationTest extends AbstractInfoServicesTest
     }
 
     /**
+     * @return NormaliserFactory
+     */
+    protected function normaliserFactory()
+    {
+        return new NormaliserFactory($this->ioDumper());
+    }
+
+    /**
      * @param Serializer|null $serializer
      * @return InputNormaliser
      */
@@ -30,8 +38,15 @@ abstract class AbstractIntegrationTest extends AbstractInfoServicesTest
     {
         $serializer = $serializer ?: $this->serializer();
 
-        $normaliserFactory = new NormaliserFactory($this->ioDumper());
-        return $normaliserFactory->create($serializer);
+        return $this->normaliserFactory()->create($serializer);
+    }
+
+    /**
+     * @return HydratorFactory
+     */
+    protected function hydratorFactory()
+    {
+        return new HydratorFactory($this->ioDumper());
     }
 
     /**
@@ -42,8 +57,7 @@ abstract class AbstractIntegrationTest extends AbstractInfoServicesTest
     {
         $serializer = $serializer ?: $this->serializer();
 
-        $hydratorFactory = new HydratorFactory($this->ioDumper());
-        return $hydratorFactory->create($serializer);
+        return $this->hydratorFactory()->create($serializer);
     }
 
     protected function ioDumper()

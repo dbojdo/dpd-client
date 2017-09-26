@@ -15,7 +15,7 @@ use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\PayerType;
 use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\Receiver;
 use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\Sender;
 use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\Services;
-use Webit\SoapApi\Hydrator\ChainHydrator;
+use Webit\SoapApi\Hydrator\Hydrator;
 use Webit\SoapApi\Input\InputNormaliser;
 use Webit\SoapApi\Util\Dumper\VoidDumper;
 
@@ -31,6 +31,14 @@ abstract class AbstractIntegrationTest extends AbstractServicesTest
     }
 
     /**
+     * @return NormaliserFactory
+     */
+    protected function normaliserFactory()
+    {
+        return new NormaliserFactory($this->ioDumper());
+    }
+
+    /**
      * @param Serializer|null $serializer
      * @return InputNormaliser
      */
@@ -38,20 +46,26 @@ abstract class AbstractIntegrationTest extends AbstractServicesTest
     {
         $serializer = $serializer ?: $this->serializer();
 
-        $normaliserFactory = new NormaliserFactory($this->ioDumper());
-        return $normaliserFactory->create($serializer);
+        return $this->normaliserFactory()->create($serializer);
+    }
+
+    /**
+     * @return HydratorFactory
+     */
+    protected function hydratorFactory()
+    {
+        return new HydratorFactory($this->ioDumper());
     }
 
     /**
      * @param Serializer|null $serializer
-     * @return ChainHydrator
+     * @return Hydrator
      */
     protected function hydrator(Serializer $serializer = null)
     {
         $serializer = $serializer ?: $this->serializer();
 
-        $hydratorFactory = new HydratorFactory($this->ioDumper());
-        return $hydratorFactory->create($serializer);
+        return $this->hydratorFactory()->create($serializer);
     }
 
     protected function arrayToStdClass(array $arResult)

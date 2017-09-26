@@ -26,4 +26,14 @@ class SoapExecutorFactory extends BaseSoapExecutorFactory
             $soapApiExecutorBuilder
         );
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function create($wsdl)
+    {
+        return new ExceptionsWrappingExecutor(
+            parent::create($wsdl)
+        );
+    }
 }

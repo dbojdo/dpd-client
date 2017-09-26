@@ -4,8 +4,8 @@
 namespace Webit\DPDClient\DPDInfoServices;
 
 use Webit\DPDClient\DPDInfoServices\Client\ClientEnvironments;
+use Webit\DPDClient\DPDInfoServices\Client\SoapExecutorFactory;
 use Webit\DPDClient\DPDInfoServices\Common\AuthDataV1;
-use Webit\SoapApi\Executor\SoapApiExecutorBuilder;
 use Webit\SoapApi\Util\Dumper\PhpFileDumper;
 use Webit\SoapApi\Util\Dumper\StaticNameGenerator;
 use Webit\SoapApi\Util\Dumper\VoidDumper;
@@ -17,20 +17,14 @@ abstract class AbstractApiTest extends AbstractIntegrationTest
      */
     protected function soapExecutor()
     {
-        $builder = new SoapApiExecutorBuilder();
-        $builder->setWsdl(
-            $wsdl = $this->getEnv('dpd.info_services_wsdl') ?: ClientEnvironments::wsdl(ClientEnvironments::TEST)
+        $factory = new SoapExecutorFactory(
+            null,
+            $this->normaliserFactory(),
+            $this->hydratorFactory()
         );
-
-        $serializer = $this->serializer();
-
-        $normaliser = $this->normaliser($serializer);
-        $builder->setInputNormaliser($normaliser);
-
-        $hydrator = $this->hydrator($serializer);
-        $builder->setHydrator($hydrator);
-
-        return $builder->build();
+        return $factory->create(
+            $this->getEnv('dpd.info_services_wsdl') ?: ClientEnvironments::wsdl(ClientEnvironments::TEST)
+        );
     }
 
     /**

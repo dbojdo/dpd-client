@@ -3,12 +3,11 @@
 namespace Webit\DPDClient\DPDServices;
 
 use Webit\DPDClient\DPDServices\Client\ClientEnvironments;
-use Webit\DPDClient\DPDServices\Client\ExceptionsWrappingExecutor;
+use Webit\DPDClient\DPDServices\Client\SoapExecutorFactory;
 use Webit\DPDClient\DPDServices\Common\AuthDataV1;
 use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\OpenUMLFV1;
 use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\OpenUMLFV2;
 use Webit\DPDClient\DPDServices\PackagesGeneration\OpenUMLF\Services;
-use Webit\SoapApi\Executor\SoapApiExecutorBuilder;
 use Webit\SoapApi\Util\Dumper\PhpFileDumper;
 use Webit\SoapApi\Util\Dumper\StaticNameGenerator;
 use Webit\SoapApi\Util\Dumper\VoidDumper;
@@ -22,21 +21,15 @@ abstract class AbstractApiTest extends AbstractIntegrationTest
      */
     protected function soapExecutor()
     {
-
-        $builder = new SoapApiExecutorBuilder();
-        $builder->setWsdl(
-            $wsdl = $this->getEnv('dpd.services_wsdl') ?: ClientEnvironments::wsdl(ClientEnvironments::TEST)
+        $factory = new SoapExecutorFactory(
+            null,
+            $this->normaliserFactory(),
+            $this->hydratorFactory()
         );
 
-        $serializer = $this->serializer();
-
-        $normaliser = $this->normaliser($serializer);
-        $builder->setInputNormaliser($normaliser);
-
-        $hydrator = $this->hydrator($serializer);
-        $builder->setHydrator($hydrator);
-
-        return new ExceptionsWrappingExecutor($builder->build());
+        return $factory->create(
+            $this->getEnv('dpd.services_wsdl') ?: ClientEnvironments::wsdl(ClientEnvironments::TEST)
+        );
     }
 
     /**
