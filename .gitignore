@@ -1,4 +1,4 @@
-/tests/dump/*
+/dump/*
 /.idea
 composer.lock
 composer.phar

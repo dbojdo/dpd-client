@@ -6,7 +6,7 @@
  * @author Daniel Bojdo <daniel.bojdo@web-it.eu>
  */
 
-namespace Webit\DPDClient\Util\Normaliser;
+namespace Webit\DPDClient\Common\Normaliser;
 
 use JMS\Serializer\JsonSerializationVisitor;
 use JMS\Serializer\SerializationContext;

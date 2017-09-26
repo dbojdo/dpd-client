@@ -2,22 +2,11 @@
 
 namespace Webit\DPDClient\DPDServices\Client;
 
+use Webit\DPDClient\Common\Client\SoapExecutorFactory as BaseSoapExecutorFactory;
 use Webit\SoapApi\Executor\SoapApiExecutorBuilder;
 
-class SoapExecutorFactory
+class SoapExecutorFactory extends BaseSoapExecutorFactory
 {
-    /** @var SerializerFactory */
-    private $serializerFactory;
-
-    /** @var NormaliserFactory */
-    private $normalizerFactory;
-
-    /** @var HydratorFactory */
-    private $hydratorFactory;
-
-    /** @var SoapApiExecutorBuilder */
-    private $soapApiExecutorBuilder;
-
     /**
      * @param SerializerFactory $serializerFactory
      * @param NormaliserFactory $normalizerFactory
@@ -30,29 +19,19 @@ class SoapExecutorFactory
         HydratorFactory $hydratorFactory = null,
         SoapApiExecutorBuilder $soapApiExecutorBuilder = null
     ) {
-        $this->serializerFactory = $serializerFactory ?: new SerializerFactory();
-        $this->normalizerFactory = $normalizerFactory ?: new NormaliserFactory();
-        $this->hydratorFactory = $hydratorFactory ?: new HydratorFactory();
-        $this->soapApiExecutorBuilder = $soapApiExecutorBuilder;
+        parent::__construct(
+            $serializerFactory ?: new SerializerFactory(),
+            $normalizerFactory ?: new NormaliserFactory(),
+            $hydratorFactory ?: new HydratorFactory(),
+            $soapApiExecutorBuilder
+        );
     }
 
     /**
-     * @param string $wsdl
-     * @return \Webit\SoapApi\Executor\SoapApiExecutor
+     * @inheritdoc
      */
     public function create($wsdl)
     {
-        $builder = $this->soapApiExecutorBuilder ?: new SoapApiExecutorBuilder();
-        $builder->setWsdl($wsdl);
-
-        $serializer = $this->serializerFactory->create();
-
-        $normaliser = $this->normalizerFactory->create($serializer);
-        $builder->setInputNormaliser($normaliser);
-
-        $hydrator = $this->hydratorFactory->create($serializer);
-        $builder->setHydrator($hydrator);
-
-        return new ExceptionsWrappingExecutor($builder->build());
+        return new ExceptionsWrappingExecutor(parent::create($wsdl));
     }
 }

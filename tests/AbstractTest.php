@@ -87,7 +87,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $dir = getenv('dpd.dump_io') ?: null;
         if (!$dir) {
-            return new VoidDumper();
+            return null;
         }
 
         return __DIR__.'/../'.$dir;

@@ -21,7 +21,7 @@ class GetEventsForWaybillV1 extends AbstractApi
             'getEventsForWaybillV1',
             array(
                 'waybill' => (string)$waybill,
-                'eventSelectType' => $eventsSelectType,
+                'eventsSelectType' => $eventsSelectType,
                 'language' => $language,
                 'authDataV1' => $authDataV1
             )

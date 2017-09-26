@@ -2,56 +2,18 @@
 
 namespace Webit\DPDClient\DPDServices\Client;
 
+use Webit\DPDClient\Common\Client\ExceptionsWrappingExecutor as BaseExceptionsWrappingExecutor;
 use Webit\DPDClient\DPDServices\Common\AuthDataV1;
 use Webit\DPDClient\DPDServices\Common\Exception\AuthenticationException;
 use Webit\DPDClient\DPDServices\Common\Exception\DPDServicesException;
 use Webit\DPDClient\DPDServices\Common\Exception\NotSufficientPrivilegesException;
-use Webit\SoapApi\Executor\SoapApiExecutor;
 
-class ExceptionsWrappingExecutor implements SoapApiExecutor
+class ExceptionsWrappingExecutor extends BaseExceptionsWrappingExecutor
 {
     /**
-     * @var SoapApiExecutor
+     * @inheritdoc
      */
-    private $innerExecutor;
-
-    /**
-     * ExceptionsWrappingExecutor constructor.
-     * @param SoapApiExecutor $innerExecutor
-     */
-    public function __construct(SoapApiExecutor $innerExecutor)
-    {
-        $this->innerExecutor = $innerExecutor;
-    }
-
-    /**
-     * @param string $soapFunction
-     * @param mixed $input
-     * @throws \Webit\SoapApi\Exception\SoapApiException
-     * @return mixed
-     */
-    public function executeSoapFunction($soapFunction, $input = null)
-    {
-        try {
-            return $this->innerExecutor->executeSoapFunction($soapFunction, $input);
-        } catch (\Exception $e) {
-            $previous = $e->getPrevious();
-            if ($previous instanceof \SoapFault) {
-                throw $this->wrapSoapFault($e, $previous, $soapFunction, $input);
-            }
-
-            throw $this->wrapGenericError($e, $soapFunction, $input);
-        }
-    }
-
-    /**
-     * @param \Exception $e
-     * @param \SoapFault $previous
-     * @param string $soapFunction
-     * @param mixed $input
-     * @return AuthenticationException|DPDServicesException|NotSufficientPrivilegesException
-     */
-    private function wrapSoapFault(\Exception $e, \SoapFault $previous, $soapFunction, $input)
+    protected function wrapSoapFault(\Exception $e, \SoapFault $previous, $soapFunction, $input)
     {
         if (false !== strpos($previous->getMessage(), 'no privileges')) {
             return new NotSufficientPrivilegesException(
@@ -87,12 +49,9 @@ class ExceptionsWrappingExecutor implements SoapApiExecutor
     }
 
     /**
-     * @param \Exception $e
-     * @param string $soapFunction
-     * @param mixed $input
-     * @return DPDServicesException
+     * @inheritdoc
      */
-    private function wrapGenericError(\Exception $e, $soapFunction, $input)
+    protected function wrapGenericError(\Exception $e, $soapFunction, $input)
     {
         return new DPDServicesException(
             sprintf('Error during SOAP function "%s" execution.', $soapFunction),
