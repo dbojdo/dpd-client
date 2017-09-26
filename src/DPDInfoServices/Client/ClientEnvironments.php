@@ -8,7 +8,7 @@ final class ClientEnvironments
     const TEST = 'prod';
 
     private static $wsdl = array(
-        self::PROD => 'https://dpdservices.dpd.com.pl/DPDPackageObjServicesService/DPDPackageObjServices?wsdl',
+        self::PROD => 'https://dpdinfoservices.dpd.com.pl/DPDInfoServicesObjEventsService/DPDInfoServicesObjEvents?wsdl',
     );
 
     /**
