@@ -7,7 +7,8 @@ final class PayerType
     /** @var array */
     private static $types = array(
         'SENDER' => 'SENDER',
-        'RECEIVER' => 'RECEIVER'
+        'RECEIVER' => 'RECEIVER',
+        'THIRD_PARTY' => 'THIRD_PARTY',
     );
 
     /** @var string */
@@ -36,6 +37,14 @@ final class PayerType
     public static function receiver()
     {
         return new self(self::$types['RECEIVER']);
+    }
+    
+    /**
+     * @return PayerType
+     */
+    public static function thirdParty()
+    {
+        return new self(self::$types['THIRD_PARTY']);
     }
 
     /**
