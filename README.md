@@ -30,11 +30,11 @@ $clientFactory = new ClientFactory();
 $client = $clientFactory->create($authData);
 
 // optionally pass the test WSDL path
-use Webit\DPDClient\Client\DPDServices\ClientEnvironments;
+use Webit\DPDClient\DPDServices\Client\ClientEnvironments;
 $client = $clientFactory->create($authData, ClientEnvironments::wsdl(ClientEnvironments::TEST));
 
 // optionally pass a custom WSDL path
-use Webit\DPDClient\Client\DPDServices\ClientEnvironments;
+use Webit\DPDClient\DPDServices\Client\ClientEnvironments;
 $client = $clientFactory->create($authData, 'dpdservices.wsdl');
 
 ```
@@ -77,11 +77,11 @@ $clientFactory = new ClientFactory();
 $client = $clientFactory->create($authData);
 
 // optionally pass the test WSDL path
-use Webit\DPDClient\Client\DPDInfoServices\ClientEnvironments;
+use Webit\DPDClient\DPDInfoServices\Client\ClientEnvironments;
 $client = $clientFactory->create($authData, ClientEnvironments::wsdl(ClientEnvironments::PROD));
 
 // optionally pass a custom WSDL path
-use Webit\DPDClient\Client\DPDInfoServices\ClientEnvironments;
+use Webit\DPDClient\DPDInfoServices\Client\ClientEnvironments;
 $client = $clientFactory->create($authData, 'dpdinfoservices.wsdl');
 
 ```
