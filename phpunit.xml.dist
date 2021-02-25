@@ -20,6 +20,8 @@
         <env name="dpd.password" value="changeme"/>
         <env name="dpd.fid" value="changeme"/>
         <env name="dpd.wsdl" value="https://dpdservicesdemo.dpd.com.pl/DPDPackageObjServicesService/DPDPackageObjServices?wsdl"/>
+        <env name="dpd.test_waybill" value=""/>
+
         <!-- Uncomment the line below to see the dump of the API's request / response -->
         <!--<env name="dpd.dump_io" value="dump/" />-->
     </php>

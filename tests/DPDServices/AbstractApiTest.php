@@ -28,7 +28,7 @@ abstract class AbstractApiTest extends AbstractIntegrationTest
         );
 
         return $factory->create(
-            $this->getEnv('dpd.services_wsdl') ?: ClientEnvironments::wsdl(ClientEnvironments::TEST)
+            $this->getEnv('dpd.wsdl') ?: ClientEnvironments::wsdl(ClientEnvironments::TEST)
         );
     }
 

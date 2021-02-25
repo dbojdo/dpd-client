@@ -34,4 +34,27 @@ class GetEventsForWaybillV1ApiTest extends AbstractApiTest
             $response
         );
     }
+
+    /**
+     * @test
+     */
+    public function shouldGetEventsForKnownWaybill()
+    {
+        $waybill = $this->getEnv('dpd.test_waybill');
+        if (!$waybill) {
+            $this->markTestSkipped('Set "dpd.test_waybill" key in your phpunit.xml');
+        }
+
+        $response = $this->getEventsForWaybill->__invoke(
+            $waybill,
+            EventsSelectTypeEnum::all(),
+            'PL',
+            $this->authData()
+        );
+
+        $this->assertInstanceOf(
+            'Webit\DPDClient\DPDInfoServices\CustomerEvents\CustomerEventsResponseV3',
+            $response
+        );
+    }
 }

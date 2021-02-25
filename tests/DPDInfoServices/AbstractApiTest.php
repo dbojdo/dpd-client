@@ -56,7 +56,7 @@ abstract class AbstractApiTest extends AbstractIntegrationTest
      * @param $key
      * @return null
      */
-    private function getEnv($key)
+    protected function getEnv($key)
     {
         return isset($_ENV[$key]) ? $_ENV[$key] : null;
     }
